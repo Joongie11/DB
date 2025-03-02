@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/DELETE.SQL" dialect="AZURE" />
+    <file url="file://$PROJECT_DIR$/INSERT.SQL" dialect="AZURE" />
+    <file url="file://$PROJECT_DIR$/QUERY.SQL" dialect="AZURE" />
+    <file url="file://$PROJECT_DIR$/SETUP.SQL" dialect="AZURE" />
+    <file url="file://$PROJECT_DIR$/UPDATE.SQL" dialect="AZURE" />
+  </component>
+</project>
