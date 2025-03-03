@@ -108,10 +108,17 @@ INSERT INTO Customer (CustomerName, ContactNumber, Email) VALUES
                                                               ('Jack Ramirez', '5554560129', 'jack.ramirez@example.com'),
                                                               ('Madison Cox', '5555671230', 'madison.cox@example.com');
 
--- Додавання замовлень
 INSERT INTO Orders (OrderDate, OrderAmount, CustomerID) VALUES
-                                                             ('2024-11-01', 2300.00, 1),
-                                                             ('2024-11-05', 800.00, 2);
+                                                            ('2024-11-10', 1500.00, 3),
+                                                            ('2024-11-12', 2200.50, 4),
+                                                            ('2024-11-15', 450.99, 5),
+                                                            ('2024-11-18', 2999.99, 6),
+                                                            ('2024-11-20', 1899.00, 7),
+                                                            ('2024-11-22', 799.49, 8),
+                                                            ('2024-11-25', 1300.75, 9),
+                                                            ('2024-11-28', 999.99, 10),
+                                                            ('2024-11-30', 499.00, 11),
+                                                            ('2024-12-01', 2799.50, 12);
 
 -- Додавання співробітників
 INSERT INTO Employee (EmployeeName, Position, ContactNumber) VALUES
