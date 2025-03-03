@@ -16,3 +16,9 @@ FROM Orders o
          JOIN Customer c ON o.CustomerID = c.CustomerID
          JOIN Product p ON o.OrderID = p.ProductID
          JOIN Supplier s ON p.SupplierID = s.SupplierID;
+
+-- Оператор LEFT JOIN для відображення всіх замовлень та відповідних клієнтів
+SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount,
+       Customer.CustomerName, Customer.Email
+FROM Orders
+         LEFT JOIN Customer ON Orders.CustomerID = Customer.CustomerID;
