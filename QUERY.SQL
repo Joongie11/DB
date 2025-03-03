@@ -51,5 +51,21 @@ FROM Orders o
 WHERE o.OrderAmount > 1000
 ORDER BY o.OrderAmount DESC;
 
+-- Поєднання WHERE та JOIN
+SELECT
+    o.OrderID,
+    o.OrderDate,
+    o.OrderAmount,
+    c.CustomerName,
+    c.Email,
+    p.ProductName,
+    s.SupplierName
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+         JOIN Product p ON o.OrderID = p.ProductID
+         JOIN Supplier s ON p.SupplierID = s.SupplierID
+WHERE o.OrderDate > '2024-11-01'
+ORDER BY o.OrderDate ASC;
+
 
 
