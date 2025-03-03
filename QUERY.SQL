@@ -22,3 +22,9 @@ SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount,
        Customer.CustomerName, Customer.Email
 FROM Orders
          LEFT JOIN Customer ON Orders.CustomerID = Customer.CustomerID;
+
+-- SUBQUERY для вибору замовлень із сумою вище середнього
+SELECT OrderID, OrderDate, OrderAmount, CustomerID
+FROM Orders
+WHERE OrderAmount > (SELECT AVG(OrderAmount) FROM Orders);
+
