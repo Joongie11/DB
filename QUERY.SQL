@@ -28,3 +28,12 @@ SELECT OrderID, OrderDate, OrderAmount, CustomerID
 FROM Orders
 WHERE OrderAmount > (SELECT AVG(OrderAmount) FROM Orders);
 
+-- GROUP BY, HAVING та JOIN для підрахунку продажів постачальників
+SELECT s.SupplierName, SUM(o.OrderAmount) AS TotalSales
+FROM Orders o
+         JOIN Product p ON o.OrderID = p.ProductID
+         JOIN Supplier s ON p.SupplierID = s.SupplierID
+GROUP BY s.SupplierName
+HAVING SUM(o.OrderAmount) > 2000;
+
+
