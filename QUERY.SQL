@@ -36,4 +36,20 @@ FROM Orders o
 GROUP BY s.SupplierName
 HAVING SUM(o.OrderAmount) > 2000;
 
+-- Складний багатотабличний запит для аналізу великих замовлень
+SELECT
+    c.CustomerName,
+    c.Email,
+    o.OrderDate,
+    o.OrderAmount,
+    p.ProductName,
+    s.SupplierName
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+         JOIN Product p ON o.OrderID = p.ProductID
+         JOIN Supplier s ON p.SupplierID = s.SupplierID
+WHERE o.OrderAmount > 1000
+ORDER BY o.OrderAmount DESC;
+
+
 
