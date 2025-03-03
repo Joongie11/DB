@@ -1,20 +1,115 @@
--- Додавання постачальників
-INSERT INTO Supplier (SupplierName, ContactNumber) VALUES
-                                                       ('Supplier A', '1234567890'),
-                                                       ('Supplier B', '9876543210');
+-- Додавання даних в таблицю Supplier (20)
+INSERT INTO Supplier (SupplierName, ContactNumber, Address) VALUES
+                                                                ('KeyTech Solutions', '1234567890', '123 Tech Street, NY'),
+                                                                ('MechKeys Ltd.', '2345678901', '456 Gaming Avenue, LA'),
+                                                                ('Pro Switches Inc.', '3456789012', '789 Tactile Blvd, Chicago'),
+                                                                ('Wireless Boards Co.', '4567890123', '101 Bluetooth Road, Houston'),
+                                                                ('GamingGear HQ', '5678901234', '202 eSports Circle, Miami'),
+                                                                ('SilentKeyboards', '6789012345', '303 Office Plaza, Boston'),
+                                                                ('CustomKey Labs', '7890123456', '404 Personal Blvd, Seattle'),
+                                                                ('RGB Illuminations', '8901234567', '505 Bright Lane, Denver'),
+                                                                ('ProTyping Devices', '9012345678', '606 Office Blvd, SF'),
+                                                                ('UltraKey Inc.', '0123456789', '707 Speed Drive, Dallas'),
+                                                                ('MacroTech Keyboards', '1112223334', '808 Macro Avenue, Austin'),
+                                                                ('ErgoBoard Solutions', '2223334445', '909 Ergonomic Lane, Atlanta'),
+                                                                ('MechanicalWorks', '3334445556', '1010 Clicky Blvd, DC'),
+                                                                ('SilentTouch Keyboards', '4445556667', '1111 Whisper Court, Phoenix'),
+                                                                ('TactileSwitches Ltd.', '5556667778', '1212 Press Street, Detroit'),
+                                                                ('CompactKey', '6667778889', '1313 Mini Road, SF'),
+                                                                ('LightningSpeedKeyboards', '7778889990', '1414 Lightning Ave, Chicago'),
+                                                                ('WirelessTech Boards', '8889990001', '1515 Cordless Drive, Dallas'),
+                                                                ('EliteKey Mods', '9990001112', '1616 Elite Park, NY'),
+                                                                ('PrecisionKeys', '0001112223', '1717 Precision Lane, Boston');
 
--- Додавання продуктів
+-- Додавання даних в таблицю Product (40)
 INSERT INTO Product (ProductName, Category, Price, SupplierID) VALUES
-                                                                   ('Laptop', 'Electronics', 1500.00, 1),
-                                                                   ('Phone', 'Electronics', 800.00, 2);
+                                                                   ('Mechanical Gaming Keyboard', 'Mechanical', 129.99, 1),
+                                                                   ('Wireless RGB Keyboard', 'Wireless', 89.99, 2),
+                                                                   ('Ergonomic Office Keyboard', 'Office', 59.99, 3),
+                                                                   ('Compact 60% Keyboard', 'Compact', 109.99, 4),
+                                                                   ('Silent Membrane Keyboard', 'Membrane', 39.99, 5),
+                                                                   ('Mechanical Keyboard with PBT Keycaps', 'Mechanical', 149.99, 6),
+                                                                   ('Low Profile Wireless Keyboard', 'Wireless', 99.99, 7),
+                                                                   ('TKL Mechanical Keyboard', 'Mechanical', 119.99, 8),
+                                                                   ('Hot-Swappable Keyboard', 'Mechanical', 159.99, 9),
+                                                                   ('Custom Mechanical Keyboard Kit', 'Custom', 189.99, 10),
+                                                                   ('Ultra-Slim Bluetooth Keyboard', 'Wireless', 79.99, 11),
+                                                                   ('Multimedia Backlit Keyboard', 'Membrane', 49.99, 12),
+                                                                   ('Gasket Mounted Keyboard', 'Custom', 209.99, 13),
+                                                                   ('Hybrid Mechanical Keyboard', 'Hybrid', 89.99, 14),
+                                                                   ('Split Ergonomic Keyboard', 'Office', 129.99, 15),
+                                                                   ('Programmable Macro Keyboard', 'Custom', 179.99, 16),
+                                                                   ('Aluminum Frame Mechanical Keyboard', 'Mechanical', 139.99, 17),
+                                                                   ('Wireless Compact Mechanical Keyboard', 'Wireless', 119.99, 18),
+                                                                   ('RGB Tenkeyless Keyboard', 'Gaming', 149.99, 19),
+                                                                   ('Optical Switch Gaming Keyboard', 'Gaming', 159.99, 20),
+                                                                   ('Waterproof Mechanical Keyboard', 'Mechanical', 139.99, 1),
+                                                                   ('Compact Wireless Mechanical Keyboard', 'Wireless', 119.99, 2),
+                                                                   ('USB-C Mechanical Keyboard', 'Mechanical', 159.99, 3),
+                                                                   ('Silent Wireless Office Keyboard', 'Office', 79.99, 4),
+                                                                   ('RGB Programmable Keyboard', 'Custom', 199.99, 5),
+                                                                   ('Silent Tactile Keyboard', 'Office', 69.99, 6),
+                                                                   ('Mini Portable Keyboard', 'Compact', 59.99, 7),
+                                                                   ('Premium Mechanical Keyboard', 'Mechanical', 199.99, 8),
+                                                                   ('One-Handed Gaming Keyboard', 'Gaming', 69.99, 9),
+                                                                   ('Wireless Split Ergonomic Keyboard', 'Ergonomic', 149.99, 10),
+                                                                   ('Smart Touchpad Keyboard', 'Wireless', 119.99, 11),
+                                                                   ('RGB Low-Profile Keyboard', 'Gaming', 139.99, 12),
+                                                                   ('Ultra-Light Travel Keyboard', 'Compact', 89.99, 13),
+                                                                   ('Mechanical Keyboard with Metal Frame', 'Mechanical', 169.99, 14),
+                                                                   ('Silent Mechanical Keyboard', 'Mechanical', 109.99, 15),
+                                                                   ('Cherry MX Switch Keyboard', 'Mechanical', 149.99, 16),
+                                                                   ('Wireless Rechargeable Keyboard', 'Wireless', 99.99, 17),
+                                                                   ('Gaming Keyboard with Macro Keys', 'Gaming', 179.99, 18),
+                                                                   ('Minimalist Mechanical Keyboard', 'Compact', 129.99, 19),
+                                                                   ('Lightweight Mechanical Keyboard', 'Mechanical', 149.99, 20);
 
--- Додавання клієнтів
+
+-- Додавання даних в таблицю Customer (40)
 INSERT INTO Customer (CustomerName, ContactNumber, Email) VALUES
-                                                              ('Sofi Sha', '1234567890', 'sofi.sha@example.com'),
-                                                              ('Sarah Black', '9876543210', 'sarah.black@example.com');
+                                                              ('John Smith', '5551234567', 'john.smith@example.com'),
+                                                              ('Alice Johnson', '5552345678', 'alice.johnson@example.com'),
+                                                              ('Robert Brown', '5553456789', 'robert.brown@example.com'),
+                                                              ('Emma White', '5554567890', 'emma.white@example.com'),
+                                                              ('Michael Davis', '5555678901', 'michael.davis@example.com'),
+                                                              ('Sophia Wilson', '5556789012', 'sophia.wilson@example.com'),
+                                                              ('Daniel Miller', '5557890123', 'daniel.miller@example.com'),
+                                                              ('Olivia Garcia', '5558901234', 'olivia.garcia@example.com'),
+                                                              ('James Martinez', '5559012345', 'james.martinez@example.com'),
+                                                              ('Emily Rodriguez', '5550123456', 'emily.rodriguez@example.com'),
+                                                              ('Matthew Wilson', '5551231234', 'matthew.wilson@example.com'),
+                                                              ('Charlotte Anderson', '5552342345', 'charlotte.anderson@example.com'),
+                                                              ('Benjamin Thomas', '5553453456', 'benjamin.thomas@example.com'),
+                                                              ('Amelia Hernandez', '5554564567', 'amelia.hernandez@example.com'),
+                                                              ('Jacob Moore', '5555675678', 'jacob.moore@example.com'),
+                                                              ('Evelyn Hall', '5556786789', 'evelyn.hall@example.com'),
+                                                              ('William Lee', '5557897890', 'william.lee@example.com'),
+                                                              ('Mia Turner', '5558908901', 'mia.turner@example.com'),
+                                                              ('Ethan Scott', '5559019012', 'ethan.scott@example.com'),
+                                                              ('Harper Adams', '5550120123', 'harper.adams@example.com'),
+                                                              ('Lucas Perez', '5551234568', 'lucas.perez@example.com'),
+                                                              ('Ella Campbell', '5552345679', 'ella.campbell@example.com'),
+                                                              ('Mason Young', '5553456780', 'mason.young@example.com'),
+                                                              ('Scarlett King', '5554567891', 'scarlett.king@example.com'),
+                                                              ('Liam Green', '5555678902', 'liam.green@example.com'),
+                                                              ('Ava Walker', '5556789013', 'ava.walker@example.com'),
+                                                              ('Noah Hall', '5557890124', 'noah.hall@example.com'),
+                                                              ('Isabella Allen', '5558901235', 'isabella.allen@example.com'),
+                                                              ('Logan Scott', '5559012346', 'logan.scott@example.com'),
+                                                              ('Zoe Wright', '5550123457', 'zoe.wright@example.com'),
+                                                              ('Nathan Bennett', '5556782341', 'nathan.bennett@example.com'),
+                                                              ('Grace Mitchell', '5557893452', 'grace.mitchell@example.com'),
+                                                              ('Elijah Torres', '5558904563', 'elijah.torres@example.com'),
+                                                              ('Hannah Parker', '5559015674', 'hannah.parker@example.com'),
+                                                              ('Alexander Reed', '5550126785', 'alexander.reed@example.com'),
+                                                              ('Victoria Ross', '5551237896', 'victoria.ross@example.com'),
+                                                              ('Samuel Diaz', '5552348907', 'samuel.diaz@example.com'),
+                                                              ('Chloe Edwards', '5553459018', 'chloe.edwards@example.com'),
+                                                              ('Jack Ramirez', '5554560129', 'jack.ramirez@example.com'),
+                                                              ('Madison Cox', '5555671230', 'madison.cox@example.com');
 
 -- Додавання замовлень
-INSERT INTO [Order] (OrderDate, OrderAmount, CustomerID) VALUES
+INSERT INTO Orders (OrderDate, OrderAmount, CustomerID) VALUES
                                                              ('2024-11-01', 2300.00, 1),
                                                              ('2024-11-05', 800.00, 2);
 
@@ -22,3 +117,4 @@ INSERT INTO [Order] (OrderDate, OrderAmount, CustomerID) VALUES
 INSERT INTO Employee (EmployeeName, Position, ContactNumber) VALUES
                                                                  ('Alice Brown', 'Manager', '1231231234'),
                                                                  ('Greg Green', 'Sales', '9879879876');
+
