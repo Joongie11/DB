@@ -21,13 +21,13 @@ CREATE TABLE Customer (
                           Email NVARCHAR(100) UNIQUE NULL
 );
 
-CREATE TABLE [Order] (
-                         OrderID INT PRIMARY KEY IDENTITY(1,1),
-    OrderDate DATE NOT NULL,
-    OrderAmount DECIMAL(12,2) CHECK (OrderAmount > 0),
-    CustomerID INT NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-    );
+CREATE TABLE Orders (
+                        OrderID INT PRIMARY KEY IDENTITY(1,1),
+                        OrderDate DATE NOT NULL,
+                        OrderAmount DECIMAL(12,2) CHECK (OrderAmount > 0),
+                        CustomerID INT NOT NULL,
+                        FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
 
 CREATE TABLE Employee (
                           EmployeeID INT PRIMARY KEY IDENTITY(1,1),
