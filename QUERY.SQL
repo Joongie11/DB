@@ -237,25 +237,39 @@ WHERE o.OrderAmount > (
     WHERE MONTH(OrderDate) = MONTH(o.OrderDate)
 );
 
+-- 12 ЗАВДАННЯ --
 
-
-
-
--- Поєднання WHERE та JOIN
-SELECT
-    o.OrderID,
-    o.OrderDate,
-    o.OrderAmount,
-    c.CustomerName,
-    c.Email,
-    p.ProductName,
-    s.SupplierName
+-- Виведення замовлень клієнтів, які зробили замовлення на суму понад 1000
+SELECT o.OrderID, o.OrderDate, o.OrderAmount, c.CustomerName
 FROM Orders o
          JOIN Customer c ON o.CustomerID = c.CustomerID
-         JOIN Product p ON o.OrderID = p.ProductID
+WHERE o.OrderAmount > 1000;
+
+-- Виведення замовлень, зроблених у лютому 2025 року
+SELECT o.OrderID, o.OrderDate, c.CustomerName, c.Email
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+WHERE o.OrderDate BETWEEN '2025-02-01' AND '2025-02-28';
+
+-- Отримання списку товарів, які мають ціну понад 150 і були замовлені
+SELECT DISTINCT p.ProductName, p.Price, s.SupplierName
+FROM Product p
          JOIN Supplier s ON p.SupplierID = s.SupplierID
-WHERE o.OrderDate > '2024-11-01'
-ORDER BY o.OrderDate ASC;
+         JOIN Orders o ON o.OrderID = p.ProductID
+WHERE p.Price > 150;
+
+-- Виведення замовлень, зроблених клієнтами у січні 2025 року
+SELECT o.OrderID, o.OrderDate, o.OrderAmount, c.CustomerName, c.Email
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+WHERE YEAR(o.OrderDate) = 2025 AND MONTH(o.OrderDate) = 1;
+
+-- Визначення постачальників, які поставили товари, дорожчі за середню ціну всіх товарів
+SELECT DISTINCT s.SupplierID, s.SupplierName
+FROM Supplier s
+         JOIN Product p ON s.SupplierID = p.SupplierID
+WHERE p.Price > (SELECT AVG(Price) FROM Product);
+
 
 
 
