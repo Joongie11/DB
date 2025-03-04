@@ -124,22 +124,48 @@ SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount, Product.ProductName
 FROM Orders
          FULL JOIN Product ON Orders.OrderID = Product.ProductID;
 
-
-
-
-
-
-
-
-
-
-
-
+-- 9 ЗАВДАННЯ --
 
 -- SUBQUERY для вибору замовлень із сумою вище середнього
 SELECT OrderID, OrderDate, OrderAmount, CustomerID
 FROM Orders
 WHERE OrderAmount > (SELECT AVG(OrderAmount) FROM Orders);
+
+-- Виведення клієнтів, які зробили замовлення на суму більше середнього значення всіх замовлень
+SELECT CustomerID, CustomerName, Email
+FROM Customer
+WHERE CustomerID IN (
+    SELECT CustomerID FROM Orders
+    WHERE OrderAmount > (SELECT AVG(OrderAmount) FROM Orders)
+);
+
+-- Виведення продуктів, які мають ціну вище середньої ціни всіх товарів
+SELECT ProductID, ProductName, Category, Price
+FROM Product
+WHERE Price > (SELECT AVG(Price) FROM Product);
+
+-- Виведення постачальників, які надають хоча б один товар із категорії "Mechanical"
+SELECT SupplierID, SupplierName, ContactNumber, Address
+FROM Supplier
+WHERE SupplierID IN (
+    SELECT SupplierID FROM Product
+    WHERE Category = 'Mechanical'
+);
+
+-- Виведення замовлень, що містять товари дорожчі за найдешевший товар у категорії "Gaming"
+SELECT OrderID, OrderDate, OrderAmount
+FROM Orders
+WHERE OrderID IN (
+    SELECT DISTINCT OrderID FROM Product
+    WHERE Price > (SELECT MIN(Price) FROM Product WHERE Category = 'Gaming')
+);
+
+
+
+
+
+
+
 
 -- GROUP BY, HAVING та JOIN для підрахунку продажів постачальників
 SELECT s.SupplierName, SUM(o.OrderAmount) AS TotalSales
