@@ -1,4 +1,5 @@
--- 4 завдання
+-- 4 завдання --
+
 -- Вибрати всі механічні клавіатури
 SELECT * FROM Product
 WHERE Category = 'Mechanical';
@@ -19,9 +20,31 @@ WHERE SupplierID = 5;
 SELECT * FROM Employee
 WHERE Position = 'Manager';
 
+-- 5 завдання --
+
 -- Вибрати всі клавіатури в діапазоні цін від 50 до 150 доларів
 SELECT * FROM Product
 WHERE Price BETWEEN 50 AND 150;
+
+-- Вибірка всіх замовлень, де сума понад 2000 і дата після 1 січня 2025 року
+SELECT * FROM Orders
+WHERE OrderAmount > 2000 AND OrderDate > '2025-01-01';
+
+-- Вибірка всіх товарів, які належать до категорії 'Mechanical' або 'Gaming'
+SELECT * FROM Product
+WHERE Category = 'Mechanical' OR Category = 'Gaming';
+
+-- Вибірка товарів, ціна яких знаходиться в межах 100-300 і вони не належать до категорії 'Membrane'
+SELECT * FROM Product
+WHERE Price BETWEEN 100 AND 300 AND NOT Category = 'Membrane';
+
+-- Вибірка замовлень, зроблених клієнтами з ID у діапазоні від 10 до 50, але виключаючи ID 25
+SELECT * FROM Orders
+WHERE CustomerID BETWEEN 10 AND 50 AND NOT CustomerID = 25;
+
+
+
+
 
 -- Вибрати всі клавіатури, у яких у назві є слово "Gaming"
 SELECT * FROM Product
