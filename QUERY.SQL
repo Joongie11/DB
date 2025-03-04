@@ -64,9 +64,7 @@ WHERE Email LIKE '%@example.com';
 SELECT * FROM Orders
 WHERE OrderDate LIKE '2025-01%';
 
-
-
-
+-- 7 ЗАВДАННЯ --
 
 -- Вибрати всі замовлення, включаючи ім'я клієнта, назву товару та ім'я постачальника
 SELECT o.OrderID, o.OrderDate, c.CustomerName, p.ProductName, s.SupplierName, o.OrderAmount
@@ -74,6 +72,34 @@ FROM Orders o
          JOIN Customer c ON o.CustomerID = c.CustomerID
          JOIN Product p ON o.OrderID = p.ProductID
          JOIN Supplier s ON p.SupplierID = s.SupplierID;
+
+-- Отримання інформації про замовлення разом із даними про клієнта
+SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount,
+       Customer.CustomerName, Customer.Email
+FROM Orders
+         JOIN Customer ON Orders.CustomerID = Customer.CustomerID;
+
+-- Отримання списку замовлень із назвами товарів та їхніми постачальниками
+SELECT Orders.OrderID, Orders.OrderDate, Product.ProductName,
+       Supplier.SupplierName
+FROM Orders
+         JOIN Product ON Orders.OrderID = Product.ProductID
+         JOIN Supplier ON Product.SupplierID = Supplier.SupplierID;
+
+-- Отримання списку товарів із зазначенням їхніх постачальників
+SELECT Product.ProductName, Product.Price, Supplier.SupplierName
+FROM Product
+         JOIN Supplier ON Product.SupplierID = Supplier.SupplierID;
+
+-- Отримання списку працівників, які обробляли замовлення
+SELECT Employee.EmployeeName, Orders.OrderID, Orders.OrderDate
+FROM Employee
+         JOIN Orders ON Employee.EmployeeID = Orders.CustomerID;
+
+
+
+
+
 
 -- Оператор LEFT JOIN для відображення всіх замовлень та відповідних клієнтів
 SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount,
