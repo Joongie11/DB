@@ -1,6 +1,23 @@
+-- 4 завдання
 -- Вибрати всі механічні клавіатури
 SELECT * FROM Product
 WHERE Category = 'Mechanical';
+
+-- Отримати всі замовлення, сума яких перевищує 2000
+SELECT * FROM Orders
+WHERE OrderAmount > 2000;
+
+-- Знайти всіх клієнтів, які мають конкретний email
+SELECT * FROM Customer
+WHERE Email = 'john.smith@example.com';
+
+-- Вибрати всі товари від постачальника з ID = 5
+SELECT * FROM Product
+WHERE SupplierID = 5;
+
+-- Отримати всіх співробітників, які мають позицію "Manager"
+SELECT * FROM Employee
+WHERE Position = 'Manager';
 
 -- Вибрати всі клавіатури в діапазоні цін від 50 до 150 доларів
 SELECT * FROM Product
