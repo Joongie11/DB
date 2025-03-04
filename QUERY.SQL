@@ -197,26 +197,49 @@ FROM Orders o
 GROUP BY c.CustomerID, c.CustomerName
 HAVING COUNT(o.OrderID) > 5;
 
+-- 11 ЗАВДАННЯ --
 
+-- Визначення загальної суми замовлень кожного клієнта, які перевищують середнє значення
+SELECT c.CustomerName, SUM(o.OrderAmount) AS TotalSpent
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+GROUP BY c.CustomerName
+HAVING SUM(o.OrderAmount) > (SELECT AVG(OrderAmount) FROM Orders);
 
-
-
-
-
--- Складний багатотабличний запит для аналізу великих замовлень
-SELECT
-    c.CustomerName,
-    c.Email,
-    o.OrderDate,
-    o.OrderAmount,
-    p.ProductName,
-    s.SupplierName
+-- Виведення замовлень з інформацією про постачальників, де сума замовлення понад 1500
+SELECT o.OrderID, o.OrderDate, o.OrderAmount, c.CustomerName, s.SupplierName
 FROM Orders o
          JOIN Customer c ON o.CustomerID = c.CustomerID
          JOIN Product p ON o.OrderID = p.ProductID
          JOIN Supplier s ON p.SupplierID = s.SupplierID
-WHERE o.OrderAmount > 1000
-ORDER BY o.OrderAmount DESC;
+WHERE o.OrderAmount > 1500;
+
+-- Отримання списку клієнтів, які здійснили замовлення в січні 2025 року
+SELECT DISTINCT c.CustomerID, c.CustomerName, c.Email
+FROM Customer c
+         JOIN Orders o ON c.CustomerID = o.CustomerID
+WHERE o.OrderDate BETWEEN '2025-01-01' AND '2025-01-31';
+
+-- Визначення клієнтів, які зробили понад 3 замовлень
+SELECT c.CustomerID, c.CustomerName, COUNT(o.OrderID) AS OrderCount
+FROM Customer c
+         JOIN Orders o ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING COUNT(o.OrderID) > 3;
+
+-- Виведення замовлень із даними клієнтів, де замовлення більше середнього значення для відповідного місяця
+SELECT o.OrderID, o.OrderDate, o.OrderAmount, c.CustomerName
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+WHERE o.OrderAmount > (
+    SELECT AVG(OrderAmount)
+    FROM Orders
+    WHERE MONTH(OrderDate) = MONTH(o.OrderDate)
+);
+
+
+
+
 
 -- Поєднання WHERE та JOIN
 SELECT
