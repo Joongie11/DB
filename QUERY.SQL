@@ -160,12 +160,7 @@ WHERE OrderID IN (
     WHERE Price > (SELECT MIN(Price) FROM Product WHERE Category = 'Gaming')
 );
 
-
-
-
-
-
-
+-- 10 ЗАВДАННЯ --
 
 -- GROUP BY, HAVING та JOIN для підрахунку продажів постачальників
 SELECT s.SupplierName, SUM(o.OrderAmount) AS TotalSales
@@ -174,6 +169,39 @@ FROM Orders o
          JOIN Supplier s ON p.SupplierID = s.SupplierID
 GROUP BY s.SupplierName
 HAVING SUM(o.OrderAmount) > 2000;
+
+-- Підрахунок загальної суми замовлень для кожного клієнта, відображення тільки тих, у кого загальна сума перевищує 2000
+SELECT c.CustomerID, c.CustomerName, SUM(o.OrderAmount) AS TotalSpent
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING SUM(o.OrderAmount) > 2000;
+
+-- Підрахунок кількості замовлень для кожного місяця та вибір місяців із більше ніж 10 замовленнями
+SELECT YEAR(o.OrderDate) AS OrderYear, MONTH(o.OrderDate) AS OrderMonth, COUNT(o.OrderID) AS OrderCount
+FROM Orders o
+GROUP BY YEAR(o.OrderDate), MONTH(o.OrderDate)
+HAVING COUNT(o.OrderID) > 10;
+
+-- Вибір категорій товарів, загальний продаж яких перевищує 3000
+SELECT p.Category, SUM(o.OrderAmount) AS TotalSales
+FROM Orders o
+         JOIN Product p ON o.OrderID = p.ProductID
+GROUP BY p.Category
+HAVING SUM(o.OrderAmount) > 3000;
+
+-- Визначення клієнтів, які зробили понад 5 замовлень
+SELECT c.CustomerID, c.CustomerName, COUNT(o.OrderID) AS TotalOrders
+FROM Orders o
+         JOIN Customer c ON o.CustomerID = c.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING COUNT(o.OrderID) > 5;
+
+
+
+
+
+
 
 -- Складний багатотабличний запит для аналізу великих замовлень
 SELECT
