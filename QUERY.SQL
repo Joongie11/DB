@@ -1,4 +1,4 @@
--- 4 завдання --
+-- 4 ЗАВДАННЯ --
 
 -- Вибрати всі механічні клавіатури
 SELECT * FROM Product
@@ -20,7 +20,7 @@ WHERE SupplierID = 5;
 SELECT * FROM Employee
 WHERE Position = 'Manager';
 
--- 5 завдання --
+-- 5 ЗАВДАННЯ --
 
 -- Вибрати всі клавіатури в діапазоні цін від 50 до 150 доларів
 SELECT * FROM Product
@@ -42,13 +42,31 @@ WHERE Price BETWEEN 100 AND 300 AND NOT Category = 'Membrane';
 SELECT * FROM Orders
 WHERE CustomerID BETWEEN 10 AND 50 AND NOT CustomerID = 25;
 
+-- 6 ЗАВДАННЯ --
 
+-- Вибірка клієнтів, у яких ім'я починається на "A"
+SELECT * FROM Customer
+WHERE CustomerName LIKE 'A%';
 
-
-
--- Вибрати всі клавіатури, у яких у назві є слово "Gaming"
+-- Вибірка товарів, які містять слово "Gaming" у назві
 SELECT * FROM Product
 WHERE ProductName LIKE '%Gaming%';
+
+-- Вибірка постачальників, у яких адреса містить слово "Street"
+SELECT * FROM Supplier
+WHERE Address LIKE '%Street%';
+
+-- Вибірка клієнтів, чий email закінчується на "@example.com"
+SELECT * FROM Customer
+WHERE Email LIKE '%@example.com';
+
+-- Вибірка замовлень, де дата замовлення містить "2025-01"
+SELECT * FROM Orders
+WHERE OrderDate LIKE '2025-01%';
+
+
+
+
 
 -- Вибрати всі замовлення, включаючи ім'я клієнта, назву товару та ім'я постачальника
 SELECT o.OrderID, o.OrderDate, c.CustomerName, p.ProductName, s.SupplierName, o.OrderAmount
