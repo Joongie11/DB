@@ -96,16 +96,45 @@ SELECT Employee.EmployeeName, Orders.OrderID, Orders.OrderDate
 FROM Employee
          JOIN Orders ON Employee.EmployeeID = Orders.CustomerID;
 
-
-
-
-
+-- 8 ЗАВДАННЯ --
 
 -- Оператор LEFT JOIN для відображення всіх замовлень та відповідних клієнтів
 SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount,
        Customer.CustomerName, Customer.Email
 FROM Orders
          LEFT JOIN Customer ON Orders.CustomerID = Customer.CustomerID;
+
+-- Виведення всіх клієнтів і їхніх замовлень, включаючи клієнтів без замовлень
+SELECT Customer.CustomerID, Customer.CustomerName, Customer.Email, Orders.OrderID, Orders.OrderDate, Orders.OrderAmount
+FROM Orders
+         RIGHT JOIN Customer ON Orders.CustomerID = Customer.CustomerID;
+
+-- Виведення всіх постачальників і відповідних продуктів, включаючи постачальників, у яких немає продуктів
+SELECT Supplier.SupplierName, Product.ProductName, Product.Price
+FROM Supplier
+         LEFT JOIN Product ON Supplier.SupplierID = Product.SupplierID;
+
+-- Виведення всіх клієнтів і їхніх замовлень, включаючи клієнтів, які не зробили жодного замовлення
+SELECT Customer.CustomerName, Customer.Email, Orders.OrderID, Orders.OrderAmount
+FROM Customer
+         RIGHT JOIN Orders ON Customer.CustomerID = Orders.CustomerID;
+
+-- Виведення всіх замовлень разом із продуктами, навіть якщо в замовленні не зазначено конкретний товар
+SELECT Orders.OrderID, Orders.OrderDate, Orders.OrderAmount, Product.ProductName
+FROM Orders
+         FULL JOIN Product ON Orders.OrderID = Product.ProductID;
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- SUBQUERY для вибору замовлень із сумою вище середнього
 SELECT OrderID, OrderDate, OrderAmount, CustomerID
