@@ -6,10 +6,10 @@ WHERE ProductName = 'Laptop';
 -- Оновлення контактної інформації клієнта
 UPDATE Customer
 SET ContactNumber = '5555555555'
-WHERE CustomerName = 'Sofi Sha';
+WHERE CustomerName = 'John Smith';
 
 -- Видалення одного замовлення
-DELETE FROM [Order]
+DELETE FROM Orders
 WHERE OrderID = 2;
 
 -- Оновлення посади співробітника
