@@ -2,7 +2,7 @@ CREATE TABLE Supplier (
                           SupplierID INT PRIMARY KEY IDENTITY(1,1),
                           SupplierName NVARCHAR(100) NOT NULL,
                           ContactNumber NVARCHAR(15) CHECK (LEN(ContactNumber) BETWEEN 7 AND 15),
-                          Address NVARCHAR(255) NULL
+                          Address NVARCHAR(255)
 );
 
 CREATE TABLE Product (
@@ -11,14 +11,17 @@ CREATE TABLE Product (
                          Category NVARCHAR(50) NOT NULL,
                          Price DECIMAL(12,2) CHECK (Price >= 0),
                          SupplierID INT NOT NULL,
-                         FOREIGN KEY (SupplierID) REFERENCES Supplier(SupplierID)
+                         FOREIGN KEY (SupplierID)
+                             REFERENCES Supplier(SupplierID)
+                             ON DELETE CASCADE
+                             ON UPDATE CASCADE
 );
 
 CREATE TABLE Customer (
                           CustomerID INT PRIMARY KEY IDENTITY(1,1),
                           CustomerName NVARCHAR(100) NOT NULL,
-                          ContactNumber NVARCHAR(15) NULL,
-                          Email NVARCHAR(100) UNIQUE NULL
+                          ContactNumber NVARCHAR(15),
+                          Email NVARCHAR(100) UNIQUE
 );
 
 CREATE TABLE Orders (
@@ -26,7 +29,10 @@ CREATE TABLE Orders (
                         OrderDate DATE NOT NULL,
                         OrderAmount DECIMAL(12,2) CHECK (OrderAmount > 0),
                         CustomerID INT NOT NULL,
-                        FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+                        FOREIGN KEY (CustomerID)
+                            REFERENCES Customer(CustomerID)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 );
 
 CREATE TABLE Employee (
