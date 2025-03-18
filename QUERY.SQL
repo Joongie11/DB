@@ -77,6 +77,27 @@ SELECT *
 FROM Orders
 ORDER BY OrderAmount DESC;
 
+-- 1. Вибираємо всіх клієнтів, які вказали Email та мають номер телефону довший за 5 символів
+SELECT *
+FROM Customer
+WHERE Email IS NOT NULL
+  AND LEN(ContactNumber) > 5;
+
+-- 2. Виводимо всі продукти, ціна яких більше або дорівнює 1000
+-- або категорія продукту дорівнює 'Gaming'
+SELECT *
+FROM Product
+WHERE Price >= 1000
+   OR Category = 'Gaming';
+
+-- 3. Виводимо всі замовлення, зроблені після 2024-01-01
+-- та з сумою замовлення меншою за 5000
+SELECT *
+FROM Orders
+WHERE OrderDate > '2024-01-01'
+  AND OrderAmount < 5000;
+
+
 
 
 
