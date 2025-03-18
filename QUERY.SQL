@@ -6,12 +6,14 @@ WHERE CustomerID IN (
     FROM Orders
 );
 
+
 -- 2. Список постачальників та клієнтів в одному стовпчику
 SELECT SupplierName AS Name
 FROM Supplier
 UNION
 SELECT CustomerName AS Name
 FROM Customer;
+
 
 -- 3. Всі замовлення з інформацією про клієнтів
 SELECT
