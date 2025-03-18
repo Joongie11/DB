@@ -119,6 +119,53 @@ FROM Customer
          FULL JOIN Orders
                    ON Customer.CustomerID = Orders.CustomerID;
 
+-- 1. Підрахунок кількості замовлень кожного клієнта
+SELECT
+    Customer.CustomerName,
+    COUNT(Orders.OrderID) AS TotalOrders
+FROM Customer
+         LEFT JOIN Orders ON Customer.CustomerID = Orders.CustomerID
+GROUP BY Customer.CustomerName
+HAVING COUNT(Orders.OrderID) > 0; -- тільки ті, хто зробив хоча б одне замовлення
+
+
+-- 2. Загальна сума замовлень по кожному клієнту
+SELECT
+    Customer.CustomerName,
+    SUM(Orders.OrderAmount) AS TotalSpent
+FROM Customer
+         JOIN Orders ON Customer.CustomerID = Orders.CustomerID
+GROUP BY Customer.CustomerName
+HAVING SUM(Orders.OrderAmount) > 1000; -- фільтр клієнтів з витратами більше 1000
+
+
+-- 3. Кількість продуктів у кожній категорії
+SELECT
+    Category,
+    COUNT(ProductID) AS ProductCount
+FROM Product
+GROUP BY Category
+HAVING COUNT(ProductID) >= 1; -- тільки категорії з товарами
+
+
+-- 4. Середня сума замовлень по датах замовлення
+SELECT
+    OrderDate,
+    AVG(OrderAmount) AS AverageOrderAmount
+FROM Orders
+GROUP BY OrderDate
+HAVING AVG(OrderAmount) > 500; -- показати тільки дати з середнім замовленням більше 500
+
+
+-- 5. Підрахунок кількості клієнтів, які зробили замовлення на кожну дату
+SELECT
+    Orders.OrderDate,
+    COUNT(DISTINCT Orders.CustomerID) AS CustomerCount
+FROM Orders
+GROUP BY Orders.OrderDate
+HAVING COUNT(DISTINCT Orders.CustomerID) > 0; -- дати, де були клієнти з замовленнями
+
+
 
 
 
