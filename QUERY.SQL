@@ -67,4 +67,16 @@ SELECT * FROM Product;
 SELECT * FROM Customer;
 SELECT * FROM Orders;
 
+-- 1. -- Постачальники, впорядковані за алфавітом
+SELECT *
+FROM Supplier
+ORDER BY SupplierName ASC;
+
+-- 2. Замовлення за сумою, від найбільшої до найменшої
+SELECT *
+FROM Orders
+ORDER BY OrderAmount DESC;
+
+
+
 
