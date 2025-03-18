@@ -97,6 +97,29 @@ FROM Orders
 WHERE OrderDate > '2024-01-01'
   AND OrderAmount < 5000;
 
+-- 1. LEFT JOIN: Виводимо всі продукти разом з їхніми постачальниками
+-- Показуємо навіть ті продукти, які не мають прив'язаного постачальника
+SELECT
+    Product.ProductID,
+    Product.ProductName,
+    Supplier.SupplierName
+FROM Product
+         LEFT JOIN Supplier
+                   ON Product.SupplierID = Supplier.SupplierID;
+
+
+-- 2. FULL JOIN: Виводимо всі дані про замовлення та клієнтів
+-- Включаємо клієнтів, які ще не робили замовлень, та замовлення без вказаних клієнтів
+SELECT
+    Customer.CustomerName,
+    Orders.OrderID,
+    Orders.OrderDate,
+    Orders.OrderAmount
+FROM Customer
+         FULL JOIN Orders
+                   ON Customer.CustomerID = Orders.CustomerID;
+
+
 
 
 
