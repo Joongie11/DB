@@ -203,6 +203,28 @@ SELECT
     AVG(OrderAmount) OVER (PARTITION BY CustomerID) AS AvgOrderPerCustomer
 FROM Orders;
 
+-- 1. Підрахунок довжини імені працівника
+SELECT
+    EmployeeID,
+    EmployeeName,
+    LEN(EmployeeName) AS NameLength
+FROM Employee;
+
+-- 2. Отримати перші 3 символи назви постачальника
+SELECT
+    SupplierID,
+    SupplierName,
+    LEFT(SupplierName, 3) AS ShortName
+FROM Supplier;
+
+-- 3. Пошук позиції символа “@” у полі Email
+SELECT
+    CustomerID,
+    Email,
+    CHARINDEX('@', Email) AS AtPosition
+FROM Customer;
+
+
 
 
 
