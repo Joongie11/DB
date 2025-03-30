@@ -224,6 +224,30 @@ SELECT
     CHARINDEX('@', Email) AS AtPosition
 FROM Customer;
 
+-- 1. Отримати рік кожного замовлення
+SELECT
+    OrderID,
+    OrderDate,
+    YEAR(OrderDate) AS OrderYear
+FROM Orders;
+
+-- 2. Отримати місяць замовлення
+SELECT
+    OrderID,
+    OrderDate,
+    MONTH(OrderDate) AS OrderMonth
+FROM Orders;
+
+-- 3. Кількість днів від дати замовлення до сьогоднішньої дати
+SELECT
+    OrderID,
+    OrderDate,
+    DATEDIFF(DAY, OrderDate, GETDATE()) AS DaysSinceOrder
+FROM Orders;
+
+
+
+
 
 
 
