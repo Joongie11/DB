@@ -165,6 +165,12 @@ FROM Orders
 GROUP BY Orders.OrderDate
 HAVING COUNT(DISTINCT Orders.CustomerID) > 0; -- дати, де були клієнти з замовленнями
 
+SELECT COUNT(*) AS total_suppliers FROM Supplier;
+SELECT COUNT(*) AS total_products FROM Product;
+SELECT COUNT(*) AS total_customers FROM Customer;
+SELECT COUNT(*) AS total_orders FROM Orders;
+SELECT COUNT(*) AS total_employees FROM Employee;
+
 
 
 
