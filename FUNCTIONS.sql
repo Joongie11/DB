@@ -80,3 +80,73 @@ SELECT * FROM dbo.OrdersByCustomer(1);
 SELECT * FROM dbo.ProductsCheaperThan(1000);
 SELECT * FROM dbo.CustomersWithOrdersAbove(500);
 
+CREATE FUNCTION dbo.CustomerOrderSummary(@customerId INT)
+    RETURNS @result TABLE (
+                              CustomerID INT,
+                              OrderCount INT,
+                              TotalAmount DECIMAL(12,2)
+                          )
+AS
+BEGIN
+    INSERT INTO @result
+    SELECT
+        CustomerID,
+        COUNT(*) AS OrderCount,
+        SUM(OrderAmount) AS TotalAmount
+    FROM Orders
+    WHERE CustomerID = @customerId
+    GROUP BY CustomerID
+
+    RETURN
+END
+
+CREATE FUNCTION dbo.TopSuppliersByProductCount(@minProducts INT)
+    RETURNS @result TABLE (
+                              SupplierID INT,
+                              SupplierName NVARCHAR(100),
+                              ProductCount INT
+                          )
+AS
+BEGIN
+    INSERT INTO @result
+    SELECT
+        s.SupplierID,
+        s.SupplierName,
+        COUNT(p.ProductID) AS ProductCount
+    FROM Supplier s
+             JOIN Product p ON s.SupplierID = p.SupplierID
+    GROUP BY s.SupplierID, s.SupplierName
+    HAVING COUNT(p.ProductID) > @minProducts
+
+    RETURN
+END
+
+CREATE FUNCTION dbo.OrderSummaryByCustomer(@customerId INT)
+    RETURNS @result TABLE (
+                              OrderID INT,
+                              OrderDate DATE,
+                              OrderAmount DECIMAL(10,2)
+                          )
+AS
+BEGIN
+    INSERT INTO @result
+    SELECT
+        OrderID,
+        OrderDate,
+        OrderAmount
+    FROM Orders
+    WHERE CustomerID = @customerId;
+
+    RETURN
+END
+
+SELECT * FROM dbo.CustomerOrderSummary(1);
+SELECT * FROM dbo.TopSuppliersByProductCount(2);
+SELECT * FROM dbo.OrderSummaryByCustomer(1);
+
+
+
+
+
+
+
