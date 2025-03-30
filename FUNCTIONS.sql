@@ -144,9 +144,49 @@ SELECT * FROM dbo.CustomerOrderSummary(1);
 SELECT * FROM dbo.TopSuppliersByProductCount(2);
 SELECT * FROM dbo.OrderSummaryByCustomer(1);
 
+CREATE FUNCTION dbo.GetCustomerOrderCount(@customerId INT)
+    RETURNS INT
+AS
+BEGIN
+    DECLARE @result INT;
 
+    SELECT @result = COUNT(*)
+    FROM Orders
+    WHERE CustomerID = @customerId;
 
+    RETURN @result;
+END
 
+SELECT dbo.GetCustomerOrderCount(1);
 
+CREATE FUNCTION dbo.ProductsBySupplier(@supplierId INT)
+    RETURNS TABLE
+        AS
+        RETURN (
+        SELECT ProductID, ProductName, Price
+        FROM Product
+        WHERE SupplierID = @supplierId
+        );
 
+SELECT * FROM dbo.ProductsBySupplier(2);
 
+CREATE FUNCTION dbo.CustomerHighValueOrders(@customerId INT, @minAmount DECIMAL(10,2))
+    RETURNS @result TABLE (
+                              OrderID INT,
+                              OrderDate DATE,
+                              OrderAmount DECIMAL(10,2)
+                          )
+AS
+BEGIN
+    INSERT INTO @result
+    SELECT
+        OrderID,
+        OrderDate,
+        OrderAmount
+    FROM Orders
+    WHERE CustomerID = @customerId AND OrderAmount > @minAmount;
+
+    RETURN;
+END
+
+SELECT * FROM dbo.CustomerHighValueOrders(1, 500);
