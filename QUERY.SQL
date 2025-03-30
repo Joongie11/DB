@@ -180,6 +180,33 @@ SELECT MAX(OrderAmount) AS MaxOrderValue FROM Orders;
 -- 3. Кількість різних посад серед працівників
 SELECT COUNT(DISTINCT Position) AS UniquePositions FROM Employee;
 
+-- 1. Нумерація працівників за іменем
+SELECT
+    EmployeeID,
+    EmployeeName,
+    ROW_NUMBER() OVER (ORDER BY EmployeeName) AS RowNum
+FROM Employee;
+
+-- 2. Рейтинг працівників за посадою
+SELECT
+    EmployeeID,
+    EmployeeName,
+    Position,
+    RANK() OVER (ORDER BY Position) AS PositionRank
+FROM Employee;
+
+-- 3. Середня сума замовлення по кожному клієнту
+SELECT
+    CustomerID,
+    OrderID,
+    OrderAmount,
+    AVG(OrderAmount) OVER (PARTITION BY CustomerID) AS AvgOrderPerCustomer
+FROM Orders;
+
+
+
+
+
 
 
 
