@@ -171,6 +171,17 @@ SELECT COUNT(*) AS total_customers FROM Customer;
 SELECT COUNT(*) AS total_orders FROM Orders;
 SELECT COUNT(*) AS total_employees FROM Employee;
 
+-- 1. Середня ціна товару
+SELECT AVG(Price) AS AverageProductPrice FROM Product;
+
+-- 2. Максимальна сума замовлення
+SELECT MAX(OrderAmount) AS MaxOrderValue FROM Orders;
+
+-- 3. Кількість різних посад серед працівників
+SELECT COUNT(DISTINCT Position) AS UniquePositions FROM Employee;
+
+
+
 
 
 
