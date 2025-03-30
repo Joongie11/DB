@@ -43,3 +43,40 @@ END
 SELECT dbo.GetSupplierContact(1) AS SupplierPhone;
 SELECT dbo.GetProductPriceWithVAT(3) AS PriceWithVAT;
 SELECT dbo.GetCustomerEmailDomain(2) AS EmailDomain;
+
+CREATE FUNCTION dbo.OrdersByCustomer(@customerId INT)
+    RETURNS TABLE
+        AS
+        RETURN (
+        SELECT OrderID, OrderDate, OrderAmount
+        FROM Orders
+        WHERE CustomerID = @customerId
+        );
+
+CREATE FUNCTION dbo.ProductsCheaperThan(@maxPrice DECIMAL(10,2))
+    RETURNS TABLE
+        AS
+        RETURN (
+        SELECT ProductID, ProductName, Price
+        FROM Product
+        WHERE Price < @maxPrice
+        );
+
+CREATE FUNCTION dbo.CustomersWithOrdersAbove(@minAmount DECIMAL(10,2))
+    RETURNS TABLE
+        AS
+        RETURN (
+        SELECT DISTINCT
+            c.CustomerID,
+            c.CustomerName,
+            o.OrderAmount
+        FROM Customer c
+                 JOIN Orders o ON c.CustomerID = o.CustomerID
+        WHERE o.OrderAmount > @minAmount
+        );
+
+
+SELECT * FROM dbo.OrdersByCustomer(1);
+SELECT * FROM dbo.ProductsCheaperThan(1000);
+SELECT * FROM dbo.CustomersWithOrdersAbove(500);
+
