@@ -245,6 +245,10 @@ SELECT
     DATEDIFF(DAY, OrderDate, GETDATE()) AS DaysSinceOrder
 FROM Orders;
 
+CREATE NONCLUSTERED INDEX idx_Orders_OrderDate
+    ON Orders(OrderDate);
+
+
 
 
 
