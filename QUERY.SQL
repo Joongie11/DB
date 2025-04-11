@@ -251,6 +251,10 @@ CREATE CLUSTERED INDEX IX_TestData_Value
 CREATE NONCLUSTERED INDEX IX_TestData_Name
     ON TestData(Name);
 
+CREATE UNIQUE INDEX IX_TestData_ID
+    ON TestData(ID);
+
+
 
 
 
