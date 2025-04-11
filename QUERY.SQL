@@ -254,6 +254,74 @@ CREATE NONCLUSTERED INDEX IX_TestData_Name
 CREATE UNIQUE INDEX IX_TestData_ID
     ON TestData(ID);
 
+CREATE NONCLUSTERED INDEX IX_TestData_ID_Include
+    ON TestData(ID)
+    INCLUDE (Name, Value);
+
+SELECT Name, Value FROM TestData WHERE ID = 50;
+
+CREATE NONCLUSTERED INDEX IX_Filtered_Value
+    ON TestData(Value)
+    WHERE Value > 900;
+
+SELECT
+    dbschemas.name AS SchemaName,
+    dbtables.name AS TableName,
+    dbindexes.name AS IndexName,
+    indexstats.index_type_desc AS IndexType,
+    indexstats.avg_fragmentation_in_percent AS FragmentationPercent,
+    indexstats.page_count AS PageCount
+FROM sys.dm_db_index_physical_stats (DB_ID(), NULL, NULL, NULL, 'LIMITED') AS indexstats
+         INNER JOIN sys.tables dbtables ON indexstats.object_id = dbtables.object_id
+         INNER JOIN sys.schemas dbschemas ON dbtables.schema_id = dbschemas.schema_id
+         INNER JOIN sys.indexes dbindexes ON indexstats.object_id = dbindexes.object_id
+    AND indexstats.index_id = dbindexes.index_id
+WHERE dbindexes.name IS NOT NULL
+ORDER BY indexstats.avg_fragmentation_in_percent DESC;
+
+ALTER INDEX IX_TestData_Value ON TestData REORGANIZE;
+
+SELECT
+    OBJECT_NAME(ips.[object_id]) AS TableName,
+    i.name AS IndexName,
+    ips.index_type_desc AS IndexType,
+    ips.avg_fragmentation_in_percent AS FragmentationPercent
+FROM sys.dm_db_index_physical_stats (DB_ID(), NULL, NULL, NULL, 'LIMITED') ips
+         JOIN sys.indexes i ON ips.[object_id] = i.[object_id] AND ips.index_id = i.index_id
+WHERE OBJECT_NAME(ips.[object_id]) = 'TestData';
+
+ALTER INDEX IX_TestData_Value ON TestData REBUILD;
+
+DROP INDEX IX_TestData_ID_Include ON TestData;
+
+CREATE NONCLUSTERED INDEX IX_TestData_ID_Include
+    ON TestData(ID)
+    INCLUDE (Name, Value);
+
+SELECT
+    DB_NAME() AS [База_даних],
+    OBJECT_NAME(i.[object_id]) AS [Таблиця],
+    i.name AS [Індекс],
+    i.type_desc AS [Тип_індексу],
+    i.is_unique AS [Унікальний],
+    ps.avg_fragmentation_in_percent AS [Фрагментація_у_%],
+    ps.page_count AS [Кількість_сторінок]
+FROM
+    sys.indexes AS i
+        INNER JOIN
+    sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'LIMITED') AS ps
+    ON i.[object_id] = ps.[object_id] AND i.index_id = ps.index_id
+WHERE
+    i.type > 0 AND i.is_hypothetical = 0
+ORDER BY
+    ps.avg_fragmentation_in_percent DESC;
+
+
+
+
+
+
+
 
 
 
