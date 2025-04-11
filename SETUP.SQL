@@ -41,3 +41,9 @@ CREATE TABLE Employee (
                           Position NVARCHAR(50) NOT NULL,
                           ContactNumber NVARCHAR(15) NULL
 );
+
+CREATE TABLE TestData (
+                          ID INT NOT NULL,
+                          Name NVARCHAR(100),
+                          Value DECIMAL(10,2)
+);
