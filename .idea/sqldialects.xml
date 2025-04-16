@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/DELETE.SQL" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/INSERT.SQL" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/PROCEDURES.SQL" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/QUERY.SQL" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/SETUP.SQL" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/UPDATE.SQL" dialect="TSQL" />
