@@ -35,6 +35,9 @@ CREATE TABLE Orders (
                             ON UPDATE CASCADE
 );
 
+ALTER TABLE Product
+    ADD Stock INT DEFAULT 100 CHECK (Stock >= 0);
+
 CREATE TABLE Employee (
                           EmployeeID INT PRIMARY KEY IDENTITY(1,1),
                           EmployeeName NVARCHAR(100) NOT NULL,

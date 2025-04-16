@@ -68,6 +68,83 @@ END;
 
                 EXEC #GetProductStats;
 
+-- 1. Додати нове замовлення (із транзакцією)
+    CREATE PROCEDURE AddOrder
+        @CustomerID INT,
+        @OrderAmount DECIMAL(12,2),
+        @ProductID INT,
+        @Quantity INT
+    AS
+    BEGIN
+        BEGIN TRANSACTION;
+
+        BEGIN TRY
+            -- Додаємо замовлення
+            INSERT INTO Orders (OrderDate, OrderAmount, CustomerID)
+            VALUES (GETDATE(), @OrderAmount, @CustomerID);
+
+            -- Оновлюємо залишок товару
+            UPDATE Product
+            SET Stock = Stock - @Quantity
+            WHERE ProductID = @ProductID;
+
+            COMMIT;
+        END TRY
+        BEGIN CATCH
+            ROLLBACK;
+            THROW;
+        END CATCH;
+    END;
+
+        EXEC AddOrder
+             @CustomerID = 5,
+             @OrderAmount = 1099.99,
+             @ProductID = 3,
+             @Quantity = 1;
+
+-- 2. Повернення замовлення
+        CREATE PROCEDURE CancelOrder
+            @OrderID INT,
+            @ProductID INT,
+            @Quantity INT
+        AS
+        BEGIN
+            BEGIN TRANSACTION;
+
+            BEGIN TRY
+                DELETE FROM Orders
+                WHERE OrderID = @OrderID;
+
+                UPDATE Product
+                SET Stock = Stock + @Quantity
+                WHERE ProductID = @ProductID;
+
+                COMMIT;
+            END TRY
+            BEGIN CATCH
+                ROLLBACK;
+                THROW;
+            END CATCH;
+        END;
+
+            EXEC CancelOrder
+                 @OrderID = 10,
+                 @ProductID = 3,
+                 @Quantity = 1;
+
+-- 3. Перевірка наявності товару перед оформленням
+            CREATE PROCEDURE CheckStock
+            @ProductID INT
+            AS
+            BEGIN
+                SELECT ProductName, Stock
+                FROM Product
+                WHERE ProductID = @ProductID;
+            END;
+
+                EXEC CheckStock
+                     @ProductID = 3;
+
 
 
 
