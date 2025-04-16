@@ -25,19 +25,51 @@ END;
 
 
 -- Показати статистику — кількість товарів і середню ціну
-        CREATE PROCEDURE GetProductStats
-        AS
-        BEGIN
-            SELECT
-                COUNT(*) AS TotalProducts,
-                AVG(Price) AS AvgPrice
-            FROM Product;
-        END;
+    CREATE PROCEDURE GetProductStats
+    AS
+    BEGIN
+         SELECT
+             COUNT(*) AS TotalProducts,
+             AVG(Price) AS AvgPrice
+         FROM Product;
+    END;
 
 -- Виконання процедур
-            EXEC GetAllProducts;
-            EXEC GetOrdersByCustomer @CustomerID = 1;
-            EXEC GetProductStats;
+    EXEC ##GetAllProducts;
+    EXEC ##GetOrdersByCustomer @CustomerID = 1;
+    EXEC ##GetProductStats;
+
+-- 1. Тимчасова процедура: Отримати список всіх товарів
+        CREATE PROCEDURE #GetAllProducts
+        AS
+        BEGIN
+            SELECT * FROM Product;
+        END;
+
+        EXEC #GetAllProducts;
+
+-- 2. Тимчасова процедура: Отримати замовлення конкретного покупця
+            CREATE PROCEDURE #GetOrdersByCustomer
+            @CustomerID INT
+            AS
+            BEGIN
+                SELECT * FROM Orders WHERE CustomerID = @CustomerID;
+            END;
+
+            EXEC #GetOrdersByCustomer @CustomerID = 1;
+
+-- 3. Тимчасова процедура: Порахувати середню ціну та кількість товарів
+                CREATE PROCEDURE #GetProductStats
+                AS
+                BEGIN
+                    SELECT COUNT(*) AS TotalProducts, AVG(Price) AS AvgPrice
+                    FROM Product;
+                END;
+
+                EXEC #GetProductStats;
+
+
+
 
 
 
