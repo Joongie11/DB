@@ -146,6 +146,29 @@ END;
                      @ProductID = 3;
 
 
+                CREATE PROCEDURE AddTestDataRows
+                @RowCount INT
+                AS
+                BEGIN
+                    DECLARE @i INT = 1;
+
+                    WHILE @i <= @RowCount
+                        BEGIN
+                            INSERT INTO TestData (ID, Name, Value)
+                            VALUES (
+                                       (SELECT ISNULL(MAX(ID), 0) + 1 FROM TestData),
+                                       CONCAT('Auto_Item_', @i),
+                                       ROUND(RAND() * 1000, 2)
+                                   );
+
+                            SET @i = @i + 1;
+                        END
+                END;
+
+                    EXEC AddTestDataRows @RowCount = 10;
+
+
+
 
 
 
