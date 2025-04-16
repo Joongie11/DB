@@ -169,6 +169,43 @@ END;
 
 
 
+                    CREATE PROCEDURE AddProductWithSequence
+                        @ProductName NVARCHAR(100),
+                        @Category NVARCHAR(50),
+                        @Price DECIMAL(12,2),
+                        @SupplierID INT,
+                        @NewID INT OUTPUT
+                    AS
+                    BEGIN
+                        SET NOCOUNT ON;
+
+                        BEGIN TRY
+                            INSERT INTO Product (ProductName, Category, Price, SupplierID)
+                            VALUES (@ProductName, @Category, @Price, @SupplierID);
+
+                            -- Отримуємо ID останнього вставленого запису
+                            SET @NewID = SCOPE_IDENTITY();
+                        END TRY
+                        BEGIN CATCH
+                            SET @NewID = NULL;
+                        END CATCH
+                    END;
+
+-- Виклик
+
+DECLARE @NewProductID INT;
+
+EXEC AddProductWithSequence
+     @ProductName = 'Test Keyboard',
+     @Category = 'Test',
+     @Price = 199.99,
+     @SupplierID = 3,
+     @NewID = @NewProductID OUTPUT;
+
+SELECT @NewProductID AS InsertedID;
+
+
+
 
 
 
