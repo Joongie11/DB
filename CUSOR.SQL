@@ -46,3 +46,19 @@ BEGIN CATCH
     PRINT 'Виникла помилка:';
     PRINT ERROR_MESSAGE();
 END CATCH;
+
+BEGIN TRAN;
+
+DECLARE @i INT = 1;
+
+WHILE @i <= 100000
+    BEGIN
+        INSERT INTO TestData (ID, Name, Value)
+        VALUES (@i, CONCAT('Name_', @i), RAND() * 1000);
+
+        SET @i = @i + 1;
+    END
+
+COMMIT;
+
+SELECT COUNT(*) AS TotalRows FROM TestData;
