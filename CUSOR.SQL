@@ -18,3 +18,17 @@ IF (SELECT COUNT(*) FROM Product WHERE Price < 1000) = 0
 ELSE
     COMMIT;
 
+BEGIN TRAN;
+
+-- Спроба оновити продукт, якого не існує
+BEGIN TRAN;
+
+UPDATE Product
+SET Price = 999.99
+WHERE ProductID = 9999;  -- неіснуючий ID
+
+IF @@ERROR <> 0
+    ROLLBACK;
+ELSE
+    COMMIT;
+
