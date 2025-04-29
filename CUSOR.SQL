@@ -32,3 +32,17 @@ IF @@ERROR <> 0
 ELSE
     COMMIT;
 
+BEGIN TRAN;
+BEGIN TRY
+    -- Це викличе помилку, бо ціна не може бути від’ємною
+    UPDATE Product
+    SET Price = -500.00
+    WHERE ProductID = 1;
+
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Виникла помилка:';
+    PRINT ERROR_MESSAGE();
+END CATCH;
