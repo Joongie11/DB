@@ -62,3 +62,20 @@ WHILE @i <= 100000
 COMMIT;
 
 SELECT COUNT(*) AS TotalRows FROM TestData;
+
+CREATE OR ALTER PROCEDURE UpdateProductPrice
+    @ProductID INT,
+    @NewPrice DECIMAL(12,2)
+AS
+BEGIN
+    PRINT '--- Start: ' + CAST(GETDATE() AS NVARCHAR);
+
+    UPDATE Product
+    SET Price = @NewPrice
+    WHERE ProductID = @ProductID;
+
+    PRINT '--- End: ' + CAST(GETDATE() AS NVARCHAR);
+END;
+
+
+    EXEC UpdateProductPrice @ProductID = 1, @NewPrice = 999.99;
