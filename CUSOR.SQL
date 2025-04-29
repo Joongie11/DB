@@ -79,3 +79,94 @@ END;
 
 
     EXEC UpdateProductPrice @ProductID = 1, @NewPrice = 999.99;
+
+    -- Складний запит з JOIN, сортуванням і фільтруванням
+SELECT TOP 100 p.ProductName, s.SupplierName, p.Price, p.Stock
+FROM Product p
+         JOIN Supplier s ON p.SupplierID = s.SupplierID
+WHERE p.Stock > 50 AND p.Price BETWEEN 100 AND 500
+ORDER BY p.Price DESC;
+
+-- Створення індексу для оптимізації
+    CREATE NONCLUSTERED INDEX IX_Product_Price_Stock ON Product(Price, Stock);
+
+-- Повторення запиту з індексом
+SELECT TOP 100 p.ProductName, s.SupplierName, p.Price, p.Stock
+FROM Product p
+         JOIN Supplier s ON p.SupplierID = s.SupplierID
+WHERE p.Stock > 50 AND p.Price BETWEEN 100 AND 500
+ORDER BY p.Price DESC;
+
+-- Той самий запит засобами курсорів
+DECLARE @ProductName NVARCHAR(100), @SupplierName NVARCHAR(100), @Price DECIMAL(12,2), @Stock INT;
+
+DECLARE product_cursor CURSOR FOR
+    SELECT p.ProductName, s.SupplierName, p.Price, p.Stock
+    FROM Product p
+             JOIN Supplier s ON p.SupplierID = s.SupplierID
+    WHERE p.Stock > 50 AND p.Price BETWEEN 100 AND 500
+    ORDER BY p.Price DESC;
+
+    OPEN product_cursor;
+    FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+
+    WHILE @@FETCH_STATUS = 0
+        BEGIN
+            PRINT 'Product: ' + @ProductName + ', Supplier: ' + @SupplierName +
+                  ', Price: ' + CAST(@Price AS NVARCHAR) + ', Stock: ' + CAST(@Stock AS NVARCHAR);
+            FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+        END
+
+    CLOSE product_cursor;
+    DEALLOCATE product_cursor;
+
+-- Якщо курсор уже існує — звільняємо
+    IF CURSOR_STATUS('global', 'product_cursor') >= -1
+        BEGIN
+            CLOSE product_cursor;
+            DEALLOCATE product_cursor;
+        END;
+
+-- Оголошення змінних
+DECLARE @ProductName NVARCHAR(100),
+@SupplierName NVARCHAR(100),
+@Price DECIMAL(12,2),
+@Stock INT;
+
+-- Оголошення курсора
+DECLARE product_cursor CURSOR FOR
+    SELECT p.ProductName, s.SupplierName, p.Price, p.Stock
+    FROM Product p
+             JOIN Supplier s ON p.SupplierID = s.SupplierID
+    WHERE p.Stock > 50 AND p.Price BETWEEN 100 AND 500
+    ORDER BY p.Price DESC;
+
+    OPEN product_cursor;
+
+    PRINT '--- FIRST CURSOR RUN ---';
+
+    FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+
+    WHILE @@FETCH_STATUS = 0
+        BEGIN
+            PRINT 'Product: ' + @ProductName + ', Supplier: ' + @SupplierName +
+                  ', Price: ' + CAST(@Price AS NVARCHAR) + ', Stock: ' + CAST(@Stock AS NVARCHAR);
+            FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+        END
+
+    CLOSE product_cursor;
+    OPEN product_cursor;
+
+    PRINT '--- SECOND CURSOR RUN ---';
+
+    FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+
+    WHILE @@FETCH_STATUS = 0
+        BEGIN
+            PRINT 'Product: ' + @ProductName + ', Supplier: ' + @SupplierName +
+                  ', Price: ' + CAST(@Price AS NVARCHAR) + ', Stock: ' + CAST(@Stock AS NVARCHAR);
+            FETCH NEXT FROM product_cursor INTO @ProductName, @SupplierName, @Price, @Stock;
+        END
+
+    CLOSE product_cursor;
+    DEALLOCATE product_cursor;
