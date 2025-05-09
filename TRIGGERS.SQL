@@ -65,3 +65,18 @@ END;
         DROP TABLE TestDDL;
 
         SELECT * FROM DDL_ChangeLog ORDER BY EventTime DESC;
+
+        CREATE TRIGGER TR_Logon_Audit
+            ON ALL SERVER
+            FOR LOGON
+            AS
+        BEGIN
+            DECLARE @LoginName NVARCHAR(100) = ORIGINAL_LOGIN();
+            DECLARE @HostName NVARCHAR(100) = HOST_NAME();
+            DECLARE @AppName NVARCHAR(100) = APP_NAME();
+
+            INSERT INTO master.dbo.LoginAudit (HostName, AppName, LoginName)
+            VALUES (@HostName, @AppName, @LoginName);
+        END;
+
+        SELECT * FROM master.dbo.LoginAudit ORDER BY LogID DESC;

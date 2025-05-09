@@ -71,3 +71,14 @@ CREATE TABLE TestDDL (
                          ID INT PRIMARY KEY,
                          Name NVARCHAR(50)
 );
+
+USE master;
+GO
+
+CREATE TABLE LoginAudit (
+                            LogID INT IDENTITY(1,1) PRIMARY KEY,
+                            LoginTime DATETIME DEFAULT GETDATE(),
+                            HostName NVARCHAR(100),
+                            AppName NVARCHAR(100),
+                            LoginName NVARCHAR(100)
+);
