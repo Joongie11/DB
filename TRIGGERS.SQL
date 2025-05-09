@@ -80,3 +80,4 @@ END;
         END;
 
         SELECT * FROM master.dbo.LoginAudit ORDER BY LogID DESC;
+
