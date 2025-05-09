@@ -57,3 +57,17 @@ CREATE TABLE ProductAudit (
                               ActionType NVARCHAR(10),
                               ActionDate DATETIME DEFAULT GETDATE()
 );
+
+CREATE TABLE DDL_ChangeLog (
+                               LogID INT IDENTITY(1,1) PRIMARY KEY,
+                               EventTime DATETIME DEFAULT GETDATE(),
+                               EventType NVARCHAR(100),
+                               ObjectName NVARCHAR(256),
+                               LoginName NVARCHAR(256),
+                               EventData XML
+);
+
+CREATE TABLE TestDDL (
+                         ID INT PRIMARY KEY,
+                         Name NVARCHAR(50)
+);

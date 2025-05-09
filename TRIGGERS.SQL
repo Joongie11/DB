@@ -42,3 +42,26 @@ END;
     END;
 
         SELECT * FROM ProductAudit;
+
+        CREATE TRIGGER TR_DDL_Logger
+            ON DATABASE
+            FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+            AS
+        BEGIN
+            DECLARE @EventData XML;
+            SET @EventData = EVENTDATA();
+
+            INSERT INTO DDL_ChangeLog (EventType, ObjectName, LoginName, EventData)
+            VALUES (
+                       @EventData.value('(/EVENT_INSTANCE/EventType)[1]', 'NVARCHAR(100)'),
+                       @EventData.value('(/EVENT_INSTANCE/ObjectName)[1]', 'NVARCHAR(256)'),
+                       @EventData.value('(/EVENT_INSTANCE/LoginName)[1]', 'NVARCHAR(256)'),
+                       @EventData
+                   );
+        END;
+
+        ALTER TABLE TestDDL ADD Age INT;
+
+        DROP TABLE TestDDL;
+
+        SELECT * FROM DDL_ChangeLog ORDER BY EventTime DESC;
