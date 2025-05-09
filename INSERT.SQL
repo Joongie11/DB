@@ -736,3 +736,6 @@ INSERT INTO TestData (ID, Name, Value) VALUES
                                            (118, 'Item_118', 245.02),
                                            (119, 'Item_119', 681.92),
                                            (120, 'Item_120', 709.77);
+
+INSERT INTO Product (ProductName, Category, Price, SupplierID)
+VALUES (N'Logitech K120', N'Мембранна', 499.00, 1);

@@ -50,3 +50,10 @@ CREATE TABLE TestData (
                           Name NVARCHAR(100),
                           Value DECIMAL(10,2)
 );
+
+CREATE TABLE ProductAudit (
+                              AuditID INT PRIMARY KEY IDENTITY(1,1),
+                              ProductID INT,
+                              ActionType NVARCHAR(10),
+                              ActionDate DATETIME DEFAULT GETDATE()
+);

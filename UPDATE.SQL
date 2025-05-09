@@ -16,3 +16,7 @@ WHERE OrderID = 2;
 UPDATE Employee
 SET Position = 'Senior Manager'
 WHERE EmployeeID = 1;
+
+UPDATE Product
+SET Price = 550.00
+WHERE ProductName = N'Logitech K120';

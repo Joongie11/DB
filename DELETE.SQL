@@ -11,3 +11,6 @@ DROP TABLE Product;
 DROP TABLE Customer;
 DROP TABLE Supplier;
 DROP TABLE Employee;
+
+DELETE FROM Product
+WHERE ProductName = N'Logitech K120';
